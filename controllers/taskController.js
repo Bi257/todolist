@@ -6,7 +6,7 @@ exports.getIndex = async (req, res) => {
         const currentUser = req.session.user;
         const allUsers = await User.find();
         
-        // Lấy tất cả task kèm thông tin user (getAllTasks - Level 1)
+        // Lấy tất cả task kèm thông tin user 
         const tasks = await Task.find().populate('assignedTo completedBy').sort({ createdAt: -1 });
 
         // Logic lọc Level 1
@@ -32,7 +32,7 @@ exports.createTask = async (req, res) => {
         const { title, assignId } = req.body;
         const currentUser = req.session.user;
 
-        // Level 3: Admin có thể chọn nhiều người, Normal chỉ tự giao chính mình
+        // Admin có thể chọn nhiều người, Normal chỉ tự giao chính mình
         let assignedTo = [currentUser._id];
         if (currentUser.role === 'admin' && assignId) {
             assignedTo = Array.isArray(assignId) ? assignId : [assignId];
@@ -53,7 +53,7 @@ exports.completeTask = async (req, res) => {
             task.completedBy.push(userId);
         }
 
-        // Level 3: Task chỉ hoàn thành khi tất cả người được giao đã click xong
+        // Task chỉ hoàn thành khi tất cả người được giao đã click xong
         if (task.completedBy.length >= task.assignedTo.length) {
             task.isDone = true;
             task.doneAt = new Date();

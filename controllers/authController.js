@@ -7,7 +7,7 @@ exports.getLogin = (req, res) => res.render('login', { error: null });
 exports.postRegister = async (req, res) => {
     try {
         const { username, password, fullName, role } = req.body;
-        // Check username tồn tại (Yêu cầu Level 1)
+        // Check username tồn tại 
         const existingUser = await User.findOne({ username });
         if (existingUser) return res.send("Username đã tồn tại!");
 

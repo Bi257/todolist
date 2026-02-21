@@ -21,8 +21,8 @@ app.use(session({
 
 // Kết nối MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todo_mvc_db')
-    .then(() => console.log('✅ MongoDB Connected'))
-    .catch(err => console.error('❌ Lỗi kết nối:', err));
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.error('Lỗi kết nối:', err));
 
 // Middleware kiểm tra đăng nhập
 const isAuth = (req, res, next) => {
@@ -54,4 +54,4 @@ app.post('/tasks/complete/:id', isAuth, taskController.completeTask);
 app.get('/tasks/delete/:id', isAuth, taskController.deleteTask);
 
 const PORT = process.env.PORT || 3002;
-app.listen(PORT, () => console.log(`🚀 Server chạy tại http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['admin', 'normal'], default: 'normal' }
 });
 
-// Level 1: Băm mật khẩu tự động
+// Băm mật khẩu tự động
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return ;
     this.password = await bcrypt.hash(this.password, 10);
